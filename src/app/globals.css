@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden; /* Prevents scrolling issues */
+  position: relative;
+}
+
+#tsparticles {
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  top: 0;
+  left: 0;
+  z-index: -10 !important;
+  pointer-events: none; /* Ensures it doesn’t block UI */
+}
+/* Change text selection color */
+::selection {
+  background-color: rgb(235, 133, 38); /* Blue highlight */
+  color: #ffffff; /* White text */
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-2px); }
+  40% { transform: translateX(2px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.4s;
+}
+
+
+/* Custom styles for RainbowKit */
+.rk-connector {
+  background-color: #2d2d2d !important; /* Dark background for modal */
+  color: white !important; /* White text */
+}
+
+.rk-connector:hover {
+  background-color: #3c3c3c !important; /* Lighter on hover */
+}
+
+.rk-modal {
+  background-color: #1f1f1f !important; /* Dark background for modal */
+  border-radius: 12px; /* Rounded corners */
+}
