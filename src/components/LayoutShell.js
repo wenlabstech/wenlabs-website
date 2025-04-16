@@ -2,7 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import FooterWrapper from "@/components/FooterWrapper";
 
 export default function LayoutShell({ children }) {
   const pathname = usePathname();
@@ -12,7 +11,7 @@ export default function LayoutShell({ children }) {
     <>
       {!isGrace && <Navbar />}
       <main>{children}</main>
-      {!isGrace && <FooterWrapper />}
+      {/* Footer has been removed */}
     </>
   );
 }

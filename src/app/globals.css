@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -12,8 +11,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden; /* Prevents scrolling issues */
-  position: relative;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 #tsparticles {
@@ -23,12 +22,12 @@ body {
   top: 0;
   left: 0;
   z-index: -10 !important;
-  pointer-events: none; /* Ensures it doesn’t block UI */
+  pointer-events: none;
 }
-/* Change text selection color */
+
 ::selection {
-  background-color: rgb(235, 133, 38); /* Blue highlight */
-  color: #ffffff; /* White text */
+  background-color: rgb(235, 133, 38);
+  color: #ffffff;
 }
 
 @keyframes shake {
@@ -44,18 +43,24 @@ body {
   animation: shake 0.4s;
 }
 
+/* RainbowKit modal fix */
+[data-rk] {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  pointer-events: auto;
+}
 
-/* Custom styles for RainbowKit */
 .rk-connector {
-  background-color: #2d2d2d !important; /* Dark background for modal */
-  color: white !important; /* White text */
+  background-color: #2d2d2d !important;
+  color: white !important;
 }
 
 .rk-connector:hover {
-  background-color: #3c3c3c !important; /* Lighter on hover */
+  background-color: #3c3c3c !important;
 }
 
 .rk-modal {
-  background-color: #1f1f1f !important; /* Dark background for modal */
-  border-radius: 12px; /* Rounded corners */
+  background-color: #1f1f1f !important;
+  border-radius: 12px !important;
 }

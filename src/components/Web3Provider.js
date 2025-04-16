@@ -1,47 +1,50 @@
 "use client";
 
-import "@app/globals.css";
+import "../app/globals.css";
 import {
   getDefaultWallets,
   RainbowKitProvider,
+  darkTheme,
 } from "@rainbow-me/rainbowkit";
 import {
-  WagmiConfig,
-  configureChains,
+  WagmiProvider,
   createConfig,
+  http,
 } from "wagmi";
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  base,
-} from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
+import { base } from "wagmi/chains";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, base],
-  [publicProvider()]
-);
+// ✅ Setup QueryClient instance
+const queryClient = new QueryClient();
 
+// ✅ Only Base chain
+const chains = [base];
+
+// ✅ Wallet connectors
 const { connectors } = getDefaultWallets({
   appName: "Grace Panel",
-  projectId: "b50796dbd58c1c7a89c41871a7e9c641", // Optional for WalletConnect
+  projectId: "b50796dbd58c1c7a89c41871a7e9c641",
   chains,
 });
 
+// ✅ wagmi config with only Base transport
 const wagmiConfig = createConfig({
-  autoConnect: true,
+  chains,
   connectors,
-  publicClient,
+  transports: {
+    [base.id]: http(),
+  },
+  ssr: true,
 });
 
 export default function Web3Provider({ children }) {
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider chains={chains}>
-        {children}
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={wagmiConfig}>
+        <RainbowKitProvider chains={chains} theme={darkTheme()}>
+          {children}
+        </RainbowKitProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
   );
 }
